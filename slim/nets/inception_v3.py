@@ -485,6 +485,7 @@ def inception_v3(inputs,
   with tf.variable_scope(scope, 'InceptionV3', [inputs], reuse=reuse) as scope:
     with slim.arg_scope([slim.batch_norm, slim.dropout],
                         is_training=is_training):
+    # with slim.arg_scope(inception_v3.inception_v3_arg_scope()):
       net, end_points = inception_v3_base(
           inputs, scope=scope, min_depth=min_depth,
           depth_multiplier=depth_multiplier)
@@ -512,6 +513,7 @@ def inception_v3(inputs,
                 aux_logits, num_classes, [1, 1], activation_fn=None,
                 normalizer_fn=None, weights_initializer=trunc_normal(0.001),
                 scope='Conv2d_2b_1x1')
+            # import pdb; pdb.set_trace()
             if spatial_squeeze:
               aux_logits = tf.squeeze(aux_logits, [1, 2], name='SpatialSqueeze')
             end_points['AuxLogits'] = aux_logits
@@ -577,3 +579,4 @@ def _reduced_kernel_size_for_small_input(input_tensor, kernel_size):
 
 
 inception_v3_arg_scope = inception_utils.inception_arg_scope
+

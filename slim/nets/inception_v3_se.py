@@ -439,7 +439,7 @@ def inception_v3_se(inputs,
                     spatial_squeeze=True,
                     reuse=None,
                     create_aux_logits=True,
-                    scope='InceptionV3SE'):
+                    scope='InceptionV3'):
   """Inception model from http://arxiv.org/abs/1512.00567.
 
   "Rethinking the Inception Architecture for Computer Vision"
@@ -489,7 +489,7 @@ def inception_v3_se(inputs,
     raise ValueError('depth_multiplier is not greater than zero.')
   depth = lambda d: max(int(d * depth_multiplier), min_depth)
 
-  with tf.variable_scope(scope, 'InceptionV3SE', [inputs, num_classes],
+  with tf.variable_scope(scope, 'InceptionV3', [inputs, num_classes],
                          reuse=reuse) as scope:
     with slim.arg_scope([slim.batch_norm, slim.dropout],
                         is_training=is_training):
@@ -576,3 +576,4 @@ def _reduced_kernel_size_for_small_input(input_tensor, kernel_size):
 
 
 inception_v3_se_arg_scope = inception_utils.inception_arg_scope
+
